@@ -18,7 +18,7 @@ if file_upload:
     
     if selected_cols:
         df_filtered = df[selected_cols]
-        include_filter = st.checkbox("Include filter")
+        include_filter = st.toggle("Include filter")
 
         if include_filter:
             text_cols = pl.get_columns_of_type(df_filtered, 'object')
