@@ -14,18 +14,21 @@ if file_upload:
     df = pl.load_file(file_upload, pl.get_file_extension(file_upload.name))
     
     cols = pl.get_column_names(df)
-    selected_cols = st.multiselect("Select columns to display", cols)
+    selected_cols = st.multiselect("Select columns to display", cols, default=cols)
     
     if selected_cols:
-        filter_col = st.selectbox("Select a column to filter", selected_cols)
-        filter_val = st.text_input("Enter a value to filter")
+        df_filtered = df[selected_cols]
+        include_filter = st.checkbox("Include filter")
+
+        if include_filter:
+            filter_col1 = st.selectbox("Select the first column to filter", selected_cols)
+            unique_vals1 = df[filter_col1].unique()
+            filter_val1 = st.selectbox("Select a value to filter for the first column", unique_vals1)
         
-        if filter_val:
-            df_filtered = df[selected_cols][df[selected_cols][filter_col] == filter_val]
-        else:
-            df_filtered = df[selected_cols]
+            if filter_val1:
+                df_filtered = df_filtered[df_filtered[filter_col1] == filter_val1]
         
-        st.write(df_filtered)
-        st.write("DataFrame Description:")
-        st.write(df_filtered.describe())
+            st.write(df_filtered)
+            st.write("DataFrame Description:")
+            st.write(df_filtered.describe())
 
