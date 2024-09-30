@@ -21,14 +21,16 @@ if file_upload:
         include_filter = st.checkbox("Include filter")
 
         if include_filter:
-            filter_col1 = st.selectbox("Select the first column to filter", selected_cols)
-            unique_vals1 = df[filter_col1].unique()
-            filter_val1 = st.selectbox("Select a value to filter for the first column", unique_vals1)
+            text_cols = pl.get_columns_of_type(df_filtered, 'object')
+            if text_cols:
+                filter_col1 = st.selectbox("Select the first column to filter", text_cols)
+                unique_vals1 = pl.get_unique_values(df_filtered, filter_col1)
+                filter_val1 = st.selectbox("Select a value to filter for the selected column", unique_vals1)
         
             if filter_val1:
                 df_filtered = df_filtered[df_filtered[filter_col1] == filter_val1]
         
-            st.write(df_filtered)
-            st.write("DataFrame Description:")
-            st.write(df_filtered.describe())
+        st.write(df_filtered)
+        st.write("DataFrame Description:")
+        st.write(df_filtered.describe())
 

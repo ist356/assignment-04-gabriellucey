@@ -1,7 +1,7 @@
 # Reflection
 
-Student Name:  name
-Sudent Email:  email
+Student Name:  Gabriel Lucey
+Sudent Email:  gplucey@syr.edu
 
 ## Instructions
 
@@ -23,3 +23,10 @@ Examples:
 
 `--- Reflection Below This Line ---`
 
+During this assignment, I did not have many struggles with pandaslib.py or unibrow.py. The only aspect of this assignment that was a bit difficult for me was incorporating all functions from pandaslib.py into the unibrow Streamlit application. At first, I did not understand why the get_columns_of_type function was needed, but I then realized that the first filter dropdown needed to be only the text columns, not the numerical columns. I learned that setting the numpy type to the desired data type would allow me to filter out any numerical values, so I set the type to "object."
+
+I was also a bit confused at first about what Streamlit functions I should be using to match the UI requirements. At first, I had st.selectbox in place for the column selection; however, after checking the requirements, I realized I needed to use st.multiselect with a default value of all the columns. This made it so that multiple columns could be selected, and each column was automatically displayed once the file was loaded in. I was also unaware that a toggle was needed, so I found that using a checkbox is a way to turn the filter on and off using an if statement. The if statement makes it so that if the checkbox is clicked, all Streamlit functions used to filter the dataframe will be displayed.
+
+I also realized that I must be careful with the indenting when it comes to displaying the dataframe. Originally, the dataframe would only display once the filter was turned on. However, by moving the st.write functions an indent back, the dataframe and description now display both with the filter on and off.
+
+Overall, this assignment was a good refresher for past topics and helped me strengthen my skills using Streamlit applications.
