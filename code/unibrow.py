@@ -16,21 +16,19 @@ if file_upload:
     cols = pl.get_column_names(df)
     selected_cols = st.multiselect("Select columns to display", cols, default=cols)
     
-    if selected_cols:
-        df_filtered = df[selected_cols]
-        include_filter = st.toggle("Include filter")
+    df_filtered = df[selected_cols]
+    include_filter = st.toggle("Include filter")
 
-        if include_filter:
-            text_cols = pl.get_columns_of_type(df_filtered, 'object')
-            if text_cols:
-                filter_col1 = st.selectbox("Select the first column to filter", text_cols)
-                unique_vals1 = pl.get_unique_values(df_filtered, filter_col1)
-                filter_val1 = st.selectbox("Select a value to filter for the selected column", unique_vals1)
+    if include_filter:
+        text_cols = pl.get_columns_of_type(df_filtered, 'object')
+        filter_col1 = st.selectbox("Select the first column to filter", text_cols)
+        if filter_col1:
+            unique_vals1 = pl.get_unique_values(df_filtered, filter_col1)
+            filter_val1 = st.selectbox("Select a value to filter for the selected column", unique_vals1)
+            df_filtered = df_filtered[df_filtered[filter_col1] == filter_val1]
+                
         
-            if filter_val1:
-                df_filtered = df_filtered[df_filtered[filter_col1] == filter_val1]
-        
-        st.write(df_filtered)
-        st.write("DataFrame Description:")
-        st.write(df_filtered.describe())
+    st.write(df_filtered)
+    st.write("DataFrame Description:")
+    st.write(df_filtered.describe())
 
